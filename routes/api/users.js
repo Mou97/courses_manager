@@ -1,10 +1,11 @@
-const { json } = require('express')
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 // import models 
 const User = require('../../models/User')
+const { route } = require('./profile')
+const passport = require('passport')
 
 router.get('/', async (req, res) => {
     let users = await User.find({})
@@ -15,7 +16,7 @@ router.post('/register', async (req, res) => {
         let user = await User.findOne({ email: req.body.email })
         if (user) {
             return res.status(400).json({
-                seccuss: false,
+                success: false,
                 message: 'Email exists already'
             })
         } else {
@@ -39,5 +40,41 @@ router.post('/register', async (req, res) => {
         console.log(err)
     }
 })
+
+router.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body
+        let user = await User.findOne({ email })
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' })
+        }
+        let isMatch = await bcrypt.compare(password, user.password)
+        if (isMatch) {
+            const payload = { id: user.id, name: user.name, avatar: user.avatar }
+            jwt.sign(payload, process.env.SECRET, { expiresIn: '7d' }, (err, token) => {
+                return res.json({
+                    success: true,
+                    token: `Bearer ${token}`
+                })
+            })
+
+        } else {
+            return res.status(400).json({ error: "Password not correct" })
+        }
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+
+})
+
+router.get('/current', passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+        return res.json({
+            id: req.user.id,
+            name: req.user.email,
+            avatar: req.user.avatar,
+        })
+    })
 
 module.exports = router
