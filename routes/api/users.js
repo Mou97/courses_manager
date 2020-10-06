@@ -4,8 +4,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 // import models 
 const User = require('../../models/User')
-const { route } = require('./profile')
 const passport = require('passport')
+
+// input validation 
+const validateRegisterInput = require('../../validation/register')
 
 router.get('/', async (req, res) => {
     let users = await User.find({})
@@ -13,12 +15,16 @@ router.get('/', async (req, res) => {
 })
 router.post('/register', async (req, res) => {
     try {
+        // validate user input
+        const { errors, isValid } = validateRegisterInput(req.body)
+        if (!isValid) {
+            return res.status(400).json(errors)
+        }
+        // registration logic
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(400).json({
-                success: false,
-                message: 'Email exists already'
-            })
+            errors.email = "Email already exists"
+            return res.status(400).json(errors)
         } else {
             const newUser = new User({
                 name: req.body.name,
