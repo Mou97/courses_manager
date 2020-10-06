@@ -10,7 +10,7 @@ const profile = require('./routes/api/profile')
 const courses = require('./routes/api/courses')
 
 // connect to the db 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).catch(err => console.log(err))
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).catch(err => console.log(err))
 
 // set up request body parser 
 app.use(express.urlencoded({ extended: true }))
