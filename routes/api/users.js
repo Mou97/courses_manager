@@ -8,6 +8,7 @@ const passport = require('passport')
 
 // input validation 
 const validateRegisterInput = require('../../validation/register')
+const validateLoginInput = require('../../validation/login')
 
 router.get('/', async (req, res) => {
     let users = await User.find({})
@@ -49,10 +50,17 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        // validate data
+        const { errors, isValid } = validateLoginInput(req.body)
+        if (!isValid) {
+            return res.status(400).json(errors)
+        }
+        // login logic
         const { email, password } = req.body
         let user = await User.findOne({ email })
         if (!user) {
-            return res.status(404).json({ error: 'User not found' })
+            errors.auth = 'User not found'
+            return res.status(404).json(errors)
         }
         let isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
@@ -65,7 +73,8 @@ router.post('/login', async (req, res) => {
             })
 
         } else {
-            return res.status(400).json({ error: "Password not correct" })
+            errors.auth = "Password not correct"
+            return res.status(400).json(errors)
         }
     } catch (error) {
         console.log(error)
