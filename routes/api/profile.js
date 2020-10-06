@@ -6,6 +6,7 @@ const passport = require('passport')
 const Profile = require('../../models/Profile')
 const Users = require('../../models/User')
 
+const validateProfileInput = require('../../validation/profile')
 router.get('/',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
@@ -27,40 +28,51 @@ router.get('/',
 router.post('/',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
-        let errors = {}
-        const profileFields = {
-            user: req.user.id,
-            handle: req.body.bio || '',
-            bio: req.body.bio || '',
-            position: req.body.position || '',
-            university: req.body.university || '',
-            fields: req.body.fields ? req.body.fields.split(',') : [],
-            social: {}
-        }
-        profileFields.social = {
-            email: req.body.email || '',
-            youtube: req.body.youtube || '',
-            linkedin: req.body.linkedin || '',
-            googleScholar: req.body.googleScholar || '',
-            researchgate: req.body.researchgate || '',
-        }
-        let profile = await Profile.findOne({ user: req.user.id })
-        if (profile) {
-            // update profile
-            profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true })
-            return res.send(profile)
-        } else {
-            // create profile
-            // check if handle exists 
-            let profile = await Profile.findOne({ handle: profileFields.handle })
-            if (profile) {
-                errors.handle = 'That handle already exists'
+        try {
+            const profileFields = {
+                user: req.user.id,
+                handle: req.body.bio || '',
+                bio: req.body.bio || '',
+                position: req.body.position || '',
+                university: req.body.university || '',
+                fields: req.body.fields ? req.body.fields.split(',').map(item => item.trim()) : [],
+                social: {}
+            }
+            profileFields.social = {
+                email: req.body.email || '',
+                youtube: req.body.youtube || '',
+                linkedin: req.body.linkedin || '',
+                googleScholar: req.body.googleScholar || '',
+                researchgate: req.body.researchgate || '',
+            }
+            // validate social links 
+            let { errors, isValid } = validateProfileInput(profileFields.social)
+            if (!isValid) {
                 return res.status(400).json(errors)
             }
-            // save profile
-            let newProfile = await new Profile(profileFields).save()
-            return res.json(newProfile)
+
+            let profile = await Profile.findOne({ user: req.user.id })
+            if (profile) {
+                // update profile
+                profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true })
+                return res.send(profile)
+            } else {
+                // create profile
+                // check if handle exists 
+                let profile = await Profile.findOne({ handle: profileFields.handle })
+                if (profile) {
+                    errors.handle = 'That handle already exists'
+                    return res.status(400).json(errors)
+                }
+                // save profile
+                let newProfile = await new Profile(profileFields).save()
+                return res.json(newProfile)
+            }
+        } catch (error) {
+            console.log(error)
+            return res.sendStatus(500)
         }
+
     })
 
 module.exports = router
