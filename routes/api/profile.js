@@ -31,7 +31,7 @@ router.post('/',
         try {
             const profileFields = {
                 user: req.user.id,
-                handle: req.body.bio || '',
+                handle: req.body.handle || '',
                 bio: req.body.bio || '',
                 position: req.body.position || '',
                 university: req.body.university || '',
@@ -74,5 +74,50 @@ router.post('/',
         }
 
     })
+
+router.get('/handle/:handle', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ handle: req.params.handle }).populate('user', ['name', 'avatar'])
+        let errors = {}
+        if (!profile) {
+            errors.profile = 'Profile does not exist'
+            return res.status(404).json(errors)
+        }
+        return res.json(profile)
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+
+})
+router.get('/user/:id', async (req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.id }).populate('user', ['name', 'avatar'])
+        let errors = {}
+        if (!profile) {
+            errors.profile = 'Profile does not exist'
+            return res.status(404).json(errors)
+        }
+        return res.json(profile)
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+})
+
+router.get('/all', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'avatar'])
+        let errors = {}
+        if (!profiles) {
+            errors.profile = 'No profiles at the moment'
+            return res.status(404).json(errors)
+        }
+        return res.json(profiles)
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+})
 
 module.exports = router
