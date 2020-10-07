@@ -4,6 +4,7 @@ const passport = require('passport')
 const Course = require('../../models/Course')
 
 const Courses = require('../../models/Course')
+const { route } = require('./profile')
 
 router.get('/mycourses',
     passport.authenticate('jwt', { session: false }),
@@ -48,5 +49,25 @@ router.post('/',
             return res.sendStatus(500)
         }
     })
+router.delete('/:course_id',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        try {
+            let course = Courses.findOne({ id: req.params.course_id, user: req.user.id })
+            if (course) {
+                Courses.findOneAndDelete(req.params.course_id).then(course => {
+                    if (!course) {
+                        return res.status(404).json({ course: 'No course with this id' })
+                    }
+                    return res.json({ course: `course with id ${req.params.course_id} was deleted` })
+                })
+
+            }
+        } catch (error) {
+            console.log(error)
+            return res.sendStatus(500)
+        }
+    }
+)
 
 module.exports = router
