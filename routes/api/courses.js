@@ -23,6 +23,7 @@ router.post('/',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
         try {
+            console.log(req.body.lectures)
             let courseFields = {
                 user: req.user.id,
                 title: req.body.title || '',
@@ -33,6 +34,7 @@ router.post('/',
                 tags: req.body.tags ? req.body.tags.split(',').map(item => item.trim()) : [],
                 lectures: req.body.lectures ? JSON.parse(req.body.lectures) : []
             }
+            console.log(courseFields)
             let course = await Courses.findOne({ title: courseFields.title, user: courseFields.user })
             if (course) {
                 // update course 
@@ -69,5 +71,30 @@ router.delete('/:course_id',
         }
     }
 )
+
+router.get('/all', async (req, res) => {
+    try {
+        const courses = await Courses.find().populate('user', ['name', 'avatar'])
+        if (courses.length === 0) {
+            return res.status(400).json({ courses: 'No courses available' })
+        }
+        return res.json(courses)
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+})
+router.get('/:id', async (req, res) => {
+    try {
+        const course = await Course.findById(req.params.id).populate('user', ['name', 'avatar'])
+        if (!course) {
+            return res.status(404).json({ course: `No course with id ${req.params.id}` })
+        }
+        return res.json(course)
+    } catch (error) {
+        console.log(error)
+        return res.sendStatus(500)
+    }
+})
 
 module.exports = router
