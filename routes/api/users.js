@@ -25,7 +25,8 @@ router.post('/register', async (req, res) => {
         let user = await User.findOne({ email: req.body.email })
         if (user) {
             errors.email = "Email already exists"
-            return res.status(400).json(errors)
+            errors.success = false
+            return res.json(errors)
         } else {
             const newUser = new User({
                 name: req.body.name,
@@ -61,7 +62,8 @@ router.post('/login', async (req, res) => {
         let user = await User.findOne({ email })
         if (!user) {
             errors.auth = 'User not found'
-            return res.status(404).json(errors)
+            errors.success = false
+            return res.json(errors)
         }
         let isMatch = await bcrypt.compare(password, user.password)
         if (isMatch) {
@@ -75,7 +77,8 @@ router.post('/login', async (req, res) => {
 
         } else {
             errors.auth = "Password not correct"
-            return res.status(400).json(errors)
+            errors.success = false
+            return res.json(errors)
         }
     } catch (error) {
         console.log(error)
