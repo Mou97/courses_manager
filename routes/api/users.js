@@ -19,7 +19,8 @@ router.post('/register', async (req, res) => {
         // validate user input
         const { errors, isValid } = validateRegisterInput(req.body)
         if (!isValid) {
-            return res.status(400).json(errors)
+            errors.success = false
+            return res.json(errors)
         }
         // registration logic
         let user = await User.findOne({ email: req.body.email })
@@ -40,7 +41,7 @@ router.post('/register', async (req, res) => {
                     if (err) throw err
                     newUser.password = hash
                     let createdUser = await newUser.save()
-                    res.json(createdUser)
+                    res.json({ success: true, createdUser })
                 })
             })
         }

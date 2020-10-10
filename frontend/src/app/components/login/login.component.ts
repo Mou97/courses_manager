@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/auth-service.service';
 })
 export class LoginComponent implements OnInit {
   loginForm : FormGroup
-  constructor(private formBuilder:FormBuilder, private authService:AuthService) {
+  constructor(private formBuilder:FormBuilder, private authService:AuthService, private router:Router) {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required , Validators.email]],
       password: [null, [Validators.required , Validators.minLength(8)]],
@@ -19,7 +19,10 @@ export class LoginComponent implements OnInit {
 
   loginUser(email,password){
     this.authService.login(email, password).subscribe(res=>{
-      console.log(res)
+      if(res.success) {
+        localStorage.setItem('token', res.token)
+        this.router.navigate(['/profile'])
+      }
     })
   }
 

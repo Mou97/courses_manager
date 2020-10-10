@@ -22,7 +22,7 @@ export class AuthService {
         
   }
   register (name ,email, password) {
-    const body = { name , email, password }
+    const body = { name , email, password , role:'teacher'}
     return this.http.post<any>( api_url+"/users/register", body,  {headers:{'Content-Type':'application/json'}} )
 
   }
