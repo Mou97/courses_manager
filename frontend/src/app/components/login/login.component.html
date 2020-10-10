@@ -14,7 +14,7 @@
                     <input matInput type='password' placeholder="Password" formControlName="password" #password>
                 </mat-form-field>
                 <br>
-                <button (click)='loginUser(email,password)'type='button' mat-raised-button color="accent" >Login</button>
+                <button (click)='loginUser(email.value,password.value)'type='button' mat-raised-button color="accent" >Login</button>
             </form>
         </div>
 

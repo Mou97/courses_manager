@@ -7,6 +7,9 @@
         <div >
             <form class='form' [formGroup]="registerForm" class="create-course-form">
                 <mat-form-field class="column-full-width">
+                    <input matInput placeholder="Name" formControlName="name" #name>
+                </mat-form-field>
+                <mat-form-field class="column-full-width">
                     <input matInput placeholder="Email" formControlName="email" #email>
                 </mat-form-field>
                 <br>
@@ -14,7 +17,7 @@
                     <input matInput type='password' placeholder="Password" formControlName="password" #password>
                 </mat-form-field>
                 <br>
-                <button (click)='registerUser(email,password)'type='button' mat-raised-button color="accent" >Register</button>
+                <button (click)='registerUser(email.value,password.value, name.value)'type='button' mat-raised-button color="accent" >Register</button>
             </form>
         </div>
 

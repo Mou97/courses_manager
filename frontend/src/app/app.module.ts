@@ -38,6 +38,7 @@ import { AuthService } from './auth-service.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,

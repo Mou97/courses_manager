@@ -15,12 +15,15 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
 
-  login(email,password) {
-      return this.http.post<any>(`${api_url}/users/login`, { email, password })
+  login(email:String,password:String) {
+    const body = { email, password }
+    console.log(body)
+    return this.http.post<any>( api_url+"/users/login", body,  {headers:{'Content-Type':'application/json'}})
         
   }
-  register (email, password) {
-    return this.http.post<any>(`${api_url}/users/register`, { email, password })
+  register (name ,email, password) {
+    const body = { name , email, password }
+    return this.http.post<any>( api_url+"/users/register", body,  {headers:{'Content-Type':'application/json'}} )
 
   }
 
