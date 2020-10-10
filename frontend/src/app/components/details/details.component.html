@@ -1,0 +1,24 @@
+<div>
+    <br>
+    <mat-card>
+        <h3>Détails du cours</h3>
+        <mat-divider></mat-divider>
+        <br>
+        <h3 class="title">Numéro: </h3>
+        <h4 class="value"> {{course.index}}</h4><br>
+        <h3 class="title">Titre: </h3>
+        <h4 class="value"> {{course.title}}</h4><br>
+        <h3 class="title">Lien: </h3>
+        <h4 class="value"> <a href="{{course.link}}">{{course.link}}</a> </h4><br>
+        <h3 class="title">Date de création: </h3>
+        <h4 class="value"> {{course.createdAt | date: 'dd-MM-yyyy hh:mm' }}</h4><br>
+        <h3 class="title">Date de dernière modification: </h3>
+        <h4 class="value"> {{course.updatedAt | date: 'dd-MM-yyyy hh:mm'}}</h4><br>
+        <h3 class="title">Description: </h3><br>
+        <h4 class="value"> {{course.description}}</h4><br>
+        <br>
+        <mat-divider></mat-divider>
+        <br><br>
+        <button mat-raised-button color="accent" routerLink="/">Retour</button>
+    </mat-card>
+</div>

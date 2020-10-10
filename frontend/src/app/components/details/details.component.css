@@ -1,0 +1,9 @@
+.title{
+    font-weight: bold;
+    display: inline;
+}
+
+.value{
+    font-weight: 500;
+    display: inline;
+}

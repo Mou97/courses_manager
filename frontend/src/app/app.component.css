@@ -1,0 +1,16 @@
+.appTitle{
+    font-size: 16px;
+    color: orange;
+}
+.centered-text{
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 10px;
+    color: red;
+}
+
+.main-wrapper{
+    padding-left: 20%;
+    padding-right: 20%;
+}

@@ -1,0 +1,22 @@
+<div class="row">
+    <mat-card >
+        <br>
+        <h3>Login</h3>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="card-body">
+            <form [formGroup]="loginForm" class="create-course-form">
+                <mat-form-field class="column-full-width">
+                    <input matInput placeholder="Email" formControlName="email" #email>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="column-full-width">
+                    <input matInput type='password' placeholder="Password" formControlName="password" #password>
+                </mat-form-field>
+                <br>
+                <button (click)='loginUser(email,password)'type='button' mat-raised-button color="accent" >Login</button>
+            </form>
+        </div>
+
+    </mat-card>
+</div>

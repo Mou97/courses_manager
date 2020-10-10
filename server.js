@@ -34,5 +34,5 @@ app.use('/api/profile', profile)
 app.use('/api/courses', courses)
 
 // set up port 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`server running on port ${port}`))

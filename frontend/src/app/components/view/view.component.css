@@ -1,0 +1,19 @@
+table {
+    width: 100%
+}
+
+.mat-column-right {
+    text-align: center;
+}
+
+.noCoursesInfo {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.course-link{
+    font-weight: bold;
+    cursor: pointer;
+    color: #3f51b5;
+}

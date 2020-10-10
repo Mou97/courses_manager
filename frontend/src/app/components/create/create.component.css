@@ -1,0 +1,12 @@
+.create-course-form {
+    min-width: 160px;
+    width: 100%;
+}
+
+.column-full-width {
+    width: 100%;
+}
+
+.saveButton{
+    margin-right: 15px;
+}

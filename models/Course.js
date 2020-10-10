@@ -9,7 +9,7 @@ const CourseSchema = new Schema({
         type: String,
         required: true,
     },
-    cover: {
+    description: {
         type: String,
     },
     year: {

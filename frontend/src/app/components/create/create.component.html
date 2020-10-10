@@ -1,0 +1,43 @@
+<div>
+    <br>
+    <mat-card>
+        <br>
+        <h3>Ajouter un nouveau cours</h3>
+        <mat-divider></mat-divider>
+        <br>
+        <form [formGroup]="createCourseForm" class="create-course-form">
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Course title" formControlName="title" #title>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Course description" formControlName="description" #description>
+            </mat-form-field>
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Speciality" formControlName="speciality" #speciality>
+            </mat-form-field>
+
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Course level" formControlName="level" #level>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="School year" formControlName="year" #year>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Tags" formControlName="tags" #tags >
+            </mat-form-field>
+
+
+            <mat-divider></mat-divider>
+            <br><br>
+            <button class="saveButton" type="submit"
+                (click)="createCourse(title.value, description.value, level.value, speciality.value, year.value,tags.value)"
+                [disabled]="createCourseForm.pristine || createCourseForm.invalid" mat-raised-button
+                color="primary">Sauvgarder</button>
+            <button mat-raised-button color="accent" routerLink="/">Retour</button>
+        </form>
+    </mat-card>
+</div>

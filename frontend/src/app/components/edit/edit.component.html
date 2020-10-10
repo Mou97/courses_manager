@@ -1,0 +1,32 @@
+<div>
+    <br>
+    <mat-card>
+        <h3>Modifier le cours</h3>
+        <mat-divider></mat-divider>
+        <br>
+        <form [formGroup]="updateCourseForm" class="edit-course-form">
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Titre du cours" formControlName="title" #title>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Description du cours" formControlName="description" #description>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Lien du cours" formControlName="link" #link>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Numéro de cours" type="number" formControlName="number" #number>
+            </mat-form-field>
+
+            <mat-divider></mat-divider>
+            <br><br>
+            <button class="saveButton" type="submit"
+                (click)="editCourse(title.value, description.value, link.value, number.value)" mat-raised-button
+                color="primary">Sauvgarder</button>
+            <button mat-raised-button color="accent" routerLink="/">Retour</button>
+        </form>
+    </mat-card>
+</div>
