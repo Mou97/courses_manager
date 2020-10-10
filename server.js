@@ -16,6 +16,14 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// CORS
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", process.env.FRONT_URL);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
 // passport middleware 
 app.use(passport.initialize())
 require('./config/passport')(passport)
