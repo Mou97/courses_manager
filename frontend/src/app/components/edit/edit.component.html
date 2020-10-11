@@ -6,25 +6,32 @@
         <br>
         <form [formGroup]="updateCourseForm" class="edit-course-form">
             <mat-form-field class="column-full-width">
-                <input matInput placeholder="Titre du cours" formControlName="title" #title>
+                <input matInput placeholder="Course title" formControlName="title" #title>
             </mat-form-field>
 
             <mat-form-field class="column-full-width">
-                <input matInput placeholder="Description du cours" formControlName="description" #description>
+                <input matInput placeholder="Course description" formControlName="description" #description>
+            </mat-form-field>
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Speciality" formControlName="speciality" #speciality>
             </mat-form-field>
 
             <mat-form-field class="column-full-width">
-                <input matInput placeholder="Lien du cours" formControlName="link" #link>
+                <input matInput placeholder="Course level" formControlName="level" #level>
             </mat-form-field>
 
             <mat-form-field class="column-full-width">
-                <input matInput placeholder="Numéro de cours" type="number" formControlName="number" #number>
+                <input matInput placeholder="School year" formControlName="year" #year>
+            </mat-form-field>
+
+            <mat-form-field class="column-full-width">
+                <input matInput placeholder="Tags" formControlName="tags" #tags >
             </mat-form-field>
 
             <mat-divider></mat-divider>
             <br><br>
             <button class="saveButton" type="submit"
-                (click)="editCourse(title.value, description.value, link.value, number.value)" mat-raised-button
+                (click)="editCourse(title.value, description.value,  level.value, speciality.value, year.value, tags.value)" mat-raised-button
                 color="primary">Sauvgarder</button>
             <button mat-raised-button color="accent" routerLink="/">Retour</button>
         </form>

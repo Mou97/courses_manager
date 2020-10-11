@@ -28,8 +28,10 @@ export class EditComponent implements OnInit {
         this.course = res;
         this.updateCourseForm.get("title").setValue(this.course.title);
         this.updateCourseForm.get("description").setValue(this.course.description);
-        this.updateCourseForm.get("link").setValue(this.course.link);
-        this.updateCourseForm.get("number").setValue(this.course.index);
+        this.updateCourseForm.get("speciality").setValue(this.course.speciality);
+        this.updateCourseForm.get("level").setValue(this.course.level);
+        this.updateCourseForm.get("tags").setValue(this.course.tags);
+        this.updateCourseForm.get("year").setValue(this.course.year);
       });
     });
   }
@@ -38,16 +40,18 @@ export class EditComponent implements OnInit {
     this.updateCourseForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      link: ['', Validators.required],
-      number: ['', Validators.required]
+      level: ['', Validators.required],
+      speciality: ['', Validators.required],
+      tags: ['', Validators.required],
+      year: ['', Validators.required],
     });
   }
 
-  editCourse(title, description, link, number) {
-    this.coursesService.updateCourse(this.id, title, description, link, number).subscribe((result: Responses) => {
+  editCourse(title, description, level, speciality, year, tags) {
+    this.coursesService.updateCourse(this.id, title, description, level, speciality, year, tags).subscribe((result: Responses) => {
       if (result.success) {
         this.router.navigate(['/']);
-        this.snackBar.open('Le cours a été mis à jour avec succès.', "OK", {
+        this.snackBar.open('The course has been updated with success.', "OK", {
           duration: 4000
         });
       } else {

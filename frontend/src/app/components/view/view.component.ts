@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ViewComponent implements OnInit {
 
   courses: Courses[];
-  tableColumns = ['index', 'title', 'createdAt', 'updatedAt', 'edit'];
+  tableColumns = ['index', 'title', 'level', 'speciality', 'tags', 'edit'];
 
   constructor(private snackBar: MatSnackBar, private coursesService: CoursesService, private router: Router) {
     this.loadCourses();
@@ -24,6 +24,8 @@ export class ViewComponent implements OnInit {
   loadCourses() {
     this.coursesService.getCourses().subscribe((coursesData: Courses[]) => {
       this.courses = coursesData;
+      console.log(this.courses)
+
     });
   }
 
@@ -38,7 +40,7 @@ export class ViewComponent implements OnInit {
   deleteCourse(id) {
     this.coursesService.deleteCourseById(id).subscribe(() => {
       this.loadCourses();
-      this.snackBar.open("Le cours a été supprimée.", "OK", {
+      this.snackBar.open("Course has been deleted.", "OK", {
         duration: 4000
       });
     })

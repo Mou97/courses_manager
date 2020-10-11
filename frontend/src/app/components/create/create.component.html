@@ -2,7 +2,7 @@
     <br>
     <mat-card>
         <br>
-        <h3>Ajouter un nouveau cours</h3>
+        <h3>Create a new course</h3>
         <mat-divider></mat-divider>
         <br>
         <form [formGroup]="createCourseForm" class="create-course-form">
@@ -36,8 +36,8 @@
             <button class="saveButton" type="submit"
                 (click)="createCourse(title.value, description.value, level.value, speciality.value, year.value,tags.value)"
                 [disabled]="createCourseForm.pristine || createCourseForm.invalid" mat-raised-button
-                color="primary">Sauvgarder</button>
-            <button mat-raised-button color="accent" routerLink="/">Retour</button>
+                color="primary">Save</button>
+            <button mat-raised-button color="accent" routerLink="/">Back</button>
         </form>
     </mat-card>
 </div>

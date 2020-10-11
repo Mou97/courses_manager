@@ -5,6 +5,5 @@ export interface Courses {
     level: string,
     speciality: string,
     tags: [string],
-    lectures : [object],
-    date: Date
+    lectures : [string],
 }
