@@ -37,7 +37,7 @@ router.post('/',
             if (course) {
                 // update course 
                 course = await Courses.findOneAndUpdate({ title: courseFields.title, user: courseFields.user }, { $set: courseFields }, { new: true })
-                return res.send(course)
+                return res.send({ success: true, course })
             } else {
                 // Create new course 
                 let newCourse = await new Courses(courseFields).save()
