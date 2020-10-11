@@ -4,15 +4,22 @@
             <img class="profile-pic"
                 src="https://lh3.googleusercontent.com/a-/AOh14GiDgvP5YcihDpEbLqa1y52PDhDWCCn-RO5cooq2Sw" alt="">
             <div class="card-body">
-                <h5>OUSSAMA AZZAZ RAHMANI</h5>
+                <h5>{{profile.user.name}}</h5>
                 <ul class="info">
-                    <h6>Age</h6>
-                    <li class="null">Value</li>
+                    <h6>Position</h6>
+                    <li class="null">{{profile.position}}</li>
                 </ul>
 
                 <ul class="info">
-                    <h6>Age</h6>
-                    <li class="null">Value</li>
+                    <h6>University</h6>
+                    <li class="null">{{profile.university}}</li>
+                </ul>
+                <ul class="info">
+                    <h6>Social</h6>
+                    <li> Email: <a href="{{profile.social.email}}"><mat-icon>email</mat-icon></a>  </li>
+                    <li> Youtube: <a href="{{profile.social.youtube}}"><mat-icon>live_tv</mat-icon></a>  </li>
+                    <li> Linkedin: <a href="{{profile.social.linkedin}}"><mat-icon>linked</mat-icon></a>  </li>
+                   
                 </ul>
             </div>
         </mat-card>
@@ -20,20 +27,20 @@
 
     <div class="left-cards-cont">
         <mat-card class="summary-card">
-            <h3>Summary</h3>
+            <h3>Bio</h3>
             <div>
                 <p class="null">
-                    Mounir is secretly gay but everybody knows it.
+                    {{profile.bio}}
                 </p>
             </div>
         </mat-card>
 
         <mat-card class="summary-card">
-            <h3>Card 2</h3>
+            <h3>Skills</h3>
             <div>
-                <p class="null">
-                    Mounir is secretly gay but everybody knows it.
-                </p>
+                <ul>
+                    <li *ngFor="let skill of profile.fields" >{{skill}}</li>
+                </ul>
             </div>
         </mat-card>
     </div>

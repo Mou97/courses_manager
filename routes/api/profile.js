@@ -16,9 +16,10 @@ router.get('/',
             const profile = await Profile.findOne({ user: req.user.id }).populate('user', ['name', 'avatar'])
             if (!profile) {
                 errors.profile = "There is no profile for this user"
-                return res.status(404).json(errors)
+
+                return res.json({ success: false, errors })
             }
-            return res.json(profile)
+            return res.json({ success: true, profile })
         } catch (error) {
             console.log(error)
         }

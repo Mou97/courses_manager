@@ -12,7 +12,8 @@ export class AuthService {
   public currentUser : Observable<User>
   API_URL = api_url;
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
 
   login(email:String,password:String) {
@@ -32,5 +33,6 @@ export class AuthService {
       localStorage.removeItem('currentUser');
       this.currentUserSubject.next(null);
   }
+  
 
 }
