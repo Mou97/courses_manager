@@ -16,3 +16,21 @@
     /* padding-left: 20%;
     padding-right: 20%; */
 }
+
+.container {
+    color: white;
+    background-color: #3f51b5;
+    padding: 10px 20px;
+    
+}
+
+.mat-nav-list {
+    float: right;
+}
+.container h1 {
+    margin-top: 10px;
+}
+
+.mat-nav-list a {
+    color: white;
+}

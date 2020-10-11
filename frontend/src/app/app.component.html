@@ -1,3 +1,27 @@
-<div class="main-wrapper">
-  <router-outlet></router-outlet>
+<header>
+  <div class="container"> 
+    <mat-grid-list cols="2">
+      <mat-nav-list class="list-horizontal">
+        <a mat-list-item href="/profile"> Profile</a>
+      </mat-nav-list>
+      <mat-nav-list>
+        <a mat-list-item href="/view"> My courses</a>
+      </mat-nav-list>
+      <mat-nav-list>
+        <a mat-list-item href="/allcourses"> All courses</a>
+      </mat-nav-list>
+      
+    </mat-grid-list>
+
+    <h1>Course manager</h1>
+    
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

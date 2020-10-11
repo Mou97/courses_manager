@@ -1,7 +1,7 @@
 <div>
     <br>
     <mat-card>
-        <h3>Modifier le cours</h3>
+        <h3>Edit Course</h3>
         <mat-divider></mat-divider>
         <br>
         <form [formGroup]="updateCourseForm" class="edit-course-form">
@@ -32,8 +32,8 @@
             <br><br>
             <button class="saveButton" type="submit"
                 (click)="editCourse(title.value, description.value,  level.value, speciality.value, year.value, tags.value)" mat-raised-button
-                color="primary">Sauvgarder</button>
-            <button mat-raised-button color="accent" routerLink="/">Retour</button>
+                color="primary">Save</button>
+            <button mat-raised-button color="accent" routerLink="/">Back</button>
         </form>
     </mat-card>
 </div>

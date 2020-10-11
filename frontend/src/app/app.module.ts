@@ -20,7 +20,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatListModule } from '@angular/material/list';
 import { DetailsComponent } from './components/details/details.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -56,6 +58,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     MatSnackBarModule,
     MatSliderModule,
     MatPaginatorModule,
+    MatGridListModule,
+    MatListModule
   ],
   providers: [CoursesService, AuthService],
   bootstrap: [AppComponent]
